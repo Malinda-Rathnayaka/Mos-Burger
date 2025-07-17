@@ -1,4 +1,8 @@
 
+let count = 0;
+let isTrue = false;
+
+let purchase = [];
 let store = [];
 let customer = [];
 let locCustomer = [{
@@ -14,51 +18,57 @@ function addCustomerFun(){
 
     alert("butten workd");
 
+    //localStorage.clear("BcustomerList");
     
 
-    locCustomer = JSON.parse(localStorage.getItem("CusList"))  ;
-    console.log(locCustomer);
+    locCustomer = JSON.parse(localStorage.getItem("BcustomerList")) || [] ;
+
+
+
+    let cId = document.getElementById("Cid").value;
+    let cName = document.getElementById("Cname").value;
+    let cAddress = document.getElementById("Caddress").value;
+
+    console.log(cId);
+    
+    customer = 
+        {
+            customerId : cId,
+            customerName : cName,
+            customerAddress : cAddress
+        };
+    
     
 
+    console.log(customer.length);
 
-    let CustomerId = document.getElementById("Cid").value
-    let CustomerName = document.getElementById("Cname").value
-    let CustomerAddress = document.getElementById("Caddress").value
-
-    for (element of locCustomer) {
-        console.log(element.customerId);
-        console.log(element.customerId == CustomerId);
+    for (let element of locCustomer) {
         
-        
-
-        if (element.customerId == CustomerId) {
-            alert("you are already registerd customer you can place order");
-        }else{
-              
-            // locCustomer = JSON.parse(localStorage.getItem("cusList")) || [] ;
-
-            customer = [{
-
-                customerId : CustomerId,
-                customerName : CustomerName,
-                customerAddress : CustomerAddress
-
-            }];
-
-            locCustomer.push(customer);
-
-            let strAllCus = JSON.stringify(locCustomer);
-            localStorage.setItem("CusList",strAllCus);
-            break;
-
+        if (element.customerId == cId) {
+            
+            isTrue = true;
+            alert("You are already registeres you can place order");
         }
-        break;
     }
 
+    if (isTrue != true) {
 
+        locCustomer.push(customer);
+        localStorage.setItem("BcustomerList",JSON.stringify(locCustomer)); //store customers in local 
+        alert("customer registered successfully");   
+    }
 
+    
 
-}
+    
+
+    
+
+    console.log(locCustomer);
+    
+    
+    
+};
 
 
 let selectItem ;
@@ -134,34 +144,195 @@ store = [
 let strburgerList = JSON.stringify(store);
 localStorage.setItem("BurgerList",strburgerList);
 
-function selectFun(){
 
-    selectItem = document.getElementById("SelectCode").value;
 
-    alert("press");
+for (data of store) {
+    
+    //console.log(data.itemCode);
 
-   console.log(store);
+    document.getElementById("displayTable").innerHTML +=`
+
+
+     <tr>
+        <th>${data.itemCode}</th>
+        <th>${data.itemName}</th>
+        <th>${data.price}</th>
+        <th>${data.discount}</th>
+    </tr>
+
+
+`
+    
+}
+
+// function selectFun(){
+
+//     selectItem = document.getElementById("SelectCode").value;
+
+//     alert("press");
+
+//    console.log(store);
    
     
-    for (const element of store) {
+//     for (const element of store) {
 
-    console.log(element.itemCode == selectItem);
+//     console.log(element.itemCode == selectItem);
     
     
-    if(element.itemCode == selectItem){
+//     if(element.itemCode == selectItem){
         
 
 
+//     }
+    
+    
+
+// }
+
+
+function cartFun() {
+
+    let isthere = false;
+
+    let selectCode = document.getElementById("select").value;
+
+    document.getElementById("select").addEventListener("click",function count(){
+       
+    });
+
+    for (element of store) {
+        
+        if (selectCode == element.itemCode) {
+            isthere = true;
+        }
+    }
+
+    if (isthere == true) {
+
+        purchase = JSON.parse(localStorage.getItem("orderId"));
+        //count++;
+
+        // document.getElementById("cartDisplay").innerHTML = count;
+        // console.log(count);
+        purchase.push(selectCode);
+
+        console.log(purchase);
+
+        
+        
+        localStorage.setItem("orderId",JSON.stringify(purchase));
+
+        alert("item add successfully to cart");
+        
+
+        
+    }else{
+        alert("chect the item code and re-enter");
+    }
+
+    
+   
+
+    console.log(selectCode);
+     console.log(count);
+    
+    
+    
+
+
+}
+
+function viewCart() {
+
+    let index =[];
+    let orderId = JSON.parse(localStorage.getItem("orderId"));
+
+    console.log(store.length);
+    
+    for(let j=0 ; j < orderId.length; j++){
+        
+        for(let i=0 ; i < store.length; i++){
+
+            if (orderId[j] == store[i].itemCode ){
+                
+                index.push(i);
+            }
+        }
     }
     
     
 
+        // console.log(orderId[i]);
+        
+        // console.log(store[index[i]].itemName);
+        
+    console.log(index);
+    
+    
+        
+    
+    for(let i=0 ; i < index.length; i++){
+        document.getElementById("cart").innerHTML += `
+            
+            <div>
+            <table border="1">
+                <tr>
+                    <td>${orderId[i]}</td>
+                    <td>${store[index[i]].itemName}</td>
+                </tr>
+            </table>
+
+
+            </div>
+        
+        `
+  
+    }
+    
+
+}
+
+function removeItems() {
+    
+    let removeId = document.getElementById("remove").value;
+    console.log(removeId);
+    
+
+    let objid = JSON.parse(localStorage.getItem("orderId"));
+
+    let indexR = objid.indexOf(removeId);
+
+    if (indexR != -1) {
+        objid.splice(indexR,1);
+    }
+
+    localStorage.setItem("orderId",JSON.stringify(objid));
+    alert("Item remove successfully");
+    location.reload();
+
+   
+    
+
+}
+
+function purchaseFun(){
+
+    alert("button");
+    
+    purCusId = JSON.parse(localStorage.getItem("orderId"));
+
+
+
+   // console.log(purCusId);
+    
+
+
 }
 
 
     
 
-}
+
 
 
 

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div><input type="button" value="View Cart" onclick="viewCart()"></div>
+    <br>
+
+    <div>
+        <table border="1" id="cart">
+            <tr>
+                <th>ItemCode</th>
+                <th>ItemName</th>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>
+
+
+    </div>
+    <br>
+
+    <div><input type="text" placeholder="type item code" id="remove"> <input type="button" value="Remove Item" onclick="removeItems()"></div>
+
+    <br>
+
+    <div><a href="index.html"><input type="button" value="back to menu"></a> <input type="button" value="Purchase" onclick="purchaseFun()"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
