@@ -16,7 +16,7 @@ let locCustomer = [{
 
 function addCustomerFun(){
 
-    alert("butten workd");
+    //alert("butten workd");
 
     //localStorage.clear("BcustomerList");
     
@@ -209,7 +209,7 @@ function cartFun() {
 
     if (isthere == true) {
 
-        purchase = JSON.parse(localStorage.getItem("orderId"));
+        purchase = JSON.parse(localStorage.getItem("orderId")) || [];
         //count++;
 
         // document.getElementById("cartDisplay").innerHTML = count;
@@ -245,7 +245,7 @@ function cartFun() {
 function viewCart() {
 
     let index =[];
-    let orderId = JSON.parse(localStorage.getItem("orderId"));
+    let orderId = JSON.parse(localStorage.getItem("orderId")) || [];
 
     console.log(store.length);
     
@@ -320,7 +320,7 @@ function purchaseFun(){
     alert("button");
     let index =[];
 
-    purCusId = JSON.parse(localStorage.getItem("orderId"));
+    purCusId = JSON.parse(localStorage.getItem("orderId")) || [];
 
     for(let j=0 ; j < purCusId.length; j++){
         
@@ -363,9 +363,14 @@ function purchaseFun(){
 
 
     console.log(index);
-    
+    clear();
+    location.reload();
 
+}
 
+function clear(){
+
+    localStorage.clear("orderId");
 }
 
 
