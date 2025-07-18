@@ -318,12 +318,51 @@ function removeItems() {
 function purchaseFun(){
 
     alert("button");
-    
+    let index =[];
+
     purCusId = JSON.parse(localStorage.getItem("orderId"));
 
+    for(let j=0 ; j < purCusId.length; j++){
+        
+        for(let i=0 ; i < store.length; i++){
+
+            if (purCusId[j] == store[i].itemCode ){
+                
+                index.push(i);
+            }
+        }
+    }  
+
+    let total = 0;
+    let discountCal = 0;
+
+    for(let i=0 ; i < index.length; i++){
+
+       // console.log(store[index[i]].price);
+        //console.log(store[index[i]].discount);
+        
+        if (store[index[i]].discount != "") {
+           //discount = store[index[i]].discount;
+            total = total + store[index[i]].price;
+
+            discountCal = store[index[i]].price*(store[index[i]].discount/100);
+
+            console.log(total);
+            console.log(discountCal);
+            
+        }else{
+
+            total = total + store[index[i]].price;
+
+        }
+
+    }
+
+    alert("Total Price : "+total + "\nTotal Discount : "+discountCal +"\nBalance : "+(total - discountCal)
+    );
 
 
-   // console.log(purCusId);
+    console.log(index);
     
 
 
